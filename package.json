@@ -1,0 +1,60 @@
+{
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "dev": "lerna run dev --stream",
+    "build": "lerna run build --stream",
+    "test:unit": "lerna run test:unit --stream",
+    "test:unit:ui": "majestic",
+    "bootstrap": "lerna bootstrap --use-workspaces",
+    "new-version": "lerna version --conventional-commits --message 'chore: publish'",
+    "release": "lerna publish from-package",
+    "commit": "git-cz",
+    "update:check": "ncu && lerna run update:check --stream",
+    "update:update": "ncu -u && lerna run update:update --stream && yarn"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/config-lerna-scopes": "^8.3.4",
+    "@types/node": "*",
+    "commitizen": "^4.0.3",
+    "concurrently": "^5.0.2",
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "^4.0.10",
+    "hygen": "^5.0.3",
+    "lerna": "^3.20.2",
+    "majestic": "^1.6.2",
+    "npm-check-updates": "*",
+    "pretty-quick": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/eslint-config-typescript": "^5.0.1",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-vue": "^6.1.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-vue-i18n": "^0.3.0",
+    "typescript": "^3.7.5",
+    "ts-jest": "^24.3.0",
+    "jest": "^24.9.0",
+    "wallaby-vue-compiler": "^1.0.6"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "license": "MIT",
+  "name": "kovi-frontend"
+}

@@ -1,0 +1,26 @@
+name: Codecov
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  codeclimate:
+    name: Check Coverage & Upload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: "10"
+      - run: npm install
+      - run: npm run test:unit:coverage
+      - uses: codecov/codecov-action@v1.0.5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./test/jest/coverage/lcov.info
+          yml: ./codecov.yml

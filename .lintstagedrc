@@ -1,0 +1,30 @@
+{
+  "*.js": [
+    "lerna run lint:fix",
+    "git add",
+  ],
+  "*.jsx": [
+    "lerna run lint:fix",
+    "git add",
+  ],
+  "*.vue": [
+    "lerna run lint:fix",
+    "git add",
+  ],
+  "*.ts": [
+    "lerna run lint:fix",
+    "git add",
+  ],
+  "*.tsx": [
+    "lerna run lint:fix",
+    "git add",
+  ],
+  "*.scss": [
+    "stylelint --fix",
+    "git add",
+  ],
+  "*.styl": [
+    "stylelint --fix",
+    "git add",
+  ]
+}
