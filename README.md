@@ -1,6 +1,7 @@
 # Quasar-Framewok Lerna Monorepo Starter Kit
 
 [![Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 <img src="https://img.shields.io/npm/v/quasar.svg?label=quasar"> <img src="https://img.shields.io/npm/v/%40quasar/app.svg?label=@quasar/app"> <img src="https://img.shields.io/npm/v/%40quasar/cli.svg?label=@quasar/cli"> <img src="https://img.shields.io/npm/v/%40quasar/extras.svg?label=@quasar/extras">
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
@@ -18,7 +19,7 @@
 -   `yarn lint` - Lints and fixes files.
 -   `yarn update:check` - Check for updates on your packages.
 -   `yarn update:update` - Check for updates on your packages and install the latest.
--   `yarn commit` - Commit your changes using [commitizen](https://github.com/commitizen/cz-cli).
+-   `git-cz` - Commit your changes using [commitizen](https://github.com/commitizen/cz-cli).
 
 ## Releasing
 

@@ -13,14 +13,8 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "new-version": "lerna version --conventional-commits --message 'chore: publish'",
     "release": "lerna publish from-package",
-    "commit": "git-cz",
     "update:check": "ncu && lerna run update:check --stream",
     "update:update": "ncu -u && lerna run update:update --stream && yarn"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
@@ -35,7 +29,6 @@
     "lerna": "^3.20.2",
     "majestic": "^1.6.2",
     "npm-check-updates": "*",
-    "pretty-quick": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
@@ -56,5 +49,10 @@
     "node": ">= 10"
   },
   "license": "MIT",
-  "name": "kovi-frontend"
+  "name": "quasar-typescript-monorepo",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
