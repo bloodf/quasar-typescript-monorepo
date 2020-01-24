@@ -12,6 +12,7 @@ A Quasar Framework app
 - [Vue-i18n](https://kazupon.github.io/vue-i18n/)
 - [vue-class-component](https://github.com/vuejs/vue-class-component)
 - [vue-property-decorator](https://github.com/kaorun343/vue-property-decorator)
+- [@vue/composition-api](https://github.com/vuejs/composition-api)
 
 ## Test Tools
 
@@ -19,20 +20,66 @@ A Quasar Framework app
 - [Cypress](https://www.cypress.io/)
 - [wallaby.js](https://wallabyjs.com/)
 
+## Commands
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+$ npm run serve
 ```
 
 ### Lint the files and fix
 ```bash
-yarn run lint --fix
+$ npm run lint --fix
 ```
 
 ### Build the app for production
 ```bash
-quasar build
+$ npm run build
+```
+
+### Unit test the application
+```bash
+$ npm run test:unit
+```
+
+### Hygen - Generators
+
+#### Vuex Store
+```bash
+$ hygen store create --name <name>
+```
+
+#### Component
+- Class Based
+```bash
+$ hygen component class --name <name>
+```
+
+- Object Based
+```bash
+$ hygen component object --name <name>
+```
+
+#### Page
+- Class Based
+```bash
+$ hygen page class --name <name>
+```
+
+- Object Based
+```bash
+$ hygen page object --name <name>
+```
+
+#### layout
+- Class Based
+```bash
+$ hygen layout class --name <name>
+```
+
+- Object Based
+```bash
+$ hygen layout object --name <name>
 ```
 
 ### Customize the configuration

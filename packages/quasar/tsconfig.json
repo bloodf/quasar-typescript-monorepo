@@ -1,44 +1,50 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../../packages/quasar",
-    "types": [
-      "webpack-env",
-      "jest",
-      "quasar"
-    ],
+    "baseUrl": "../../packages/quasar/",
     "paths": {
       "app/*": [
-        "*"
+        "./*"
       ],
       "src/*": [
-        "src/*"
+        "./src/*"
       ],
       "components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "layouts/*": [
-        "src/layouts/*"
+        "./src/layouts/*"
       ],
       "pages/*": [
-        "src/pages/*"
+        "./src/pages/*"
       ],
       "assets/*": [
-        "src/assets/*"
+        "./src/assets/*"
       ],
       "boot/*": [
-        "src/boot/*"
+        "./src/boot/*"
+      ],
+      "store/*": [
+        "./src/store/*"
+      ],
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "cypress/*": [
+        "./test/cypress/*"
+      ],
+      "jest/*": [
+        "./test/jest/*"
+      ],
+      "jest/tests/*": [
+        "./test/jest/__tests__/*"
+      ],
+      "loaders/*": [
+        "./test/loaders/*"
       ]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
+    "."
   ]
 }

@@ -2,7 +2,12 @@
   "npmClient": "yarn",
   "npmClientArgs": ["--no-lockfile", "--pure-lockfile"],
   "packages": [
-    "packages/*"
+    "packages/*",
+    "services/*"
+  ],
+  "workspaces": [
+    "packages/*",
+    "services/*"
   ],
   "useWorkspaces": true,
   "version": "independent"

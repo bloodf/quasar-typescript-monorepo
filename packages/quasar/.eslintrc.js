@@ -1,29 +1,8 @@
 module.exports = {
-  root: true,
-
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:vue/essential',
-    'plugin:vue/strongly-recommended',
-    'plugin:vue/recommended',
-    '@vue/typescript',
-    'plugin:vue-i18n/recommended',
-  ],
-
-  plugins: [
-    '@typescript-eslint',
-    'vue'
-  ],
-
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    sourceType: 'module',
-  },
-
   env: {
-    browser: true
+    node: true,
+    browser: true,
+    es6: true,
   },
 
   globals: {
@@ -33,14 +12,39 @@ module.exports = {
     process: true
   },
 
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    extraFileExtensions: ['.vue']
+  },
+
+  extends: [
+    'plugin:vue/essential',
+    'plugin:vue/strongly-recommended',
+    'plugin:vue/recommended',
+    'plugin:vue-i18n/recommended',
+  ],
+
+  plugins: [
+    'vue'
+  ],
+
   rules: {
-    'prefer-promise-reject-errors': 'off',
-    quotes: ['warn', 'single'],
-    '@typescript-eslint/indent': ['warn', 2],
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
+    'vue-i18n/no-dynamic-keys': 'error',
+    'vue-i18n/no-unused-keys': [
+      'error',
+      {
+        extensions: ['.js', '.vue', '.ts']
+      }],
+    'import/extensions': ['error', 'never', {
+      js: 'never',
+      mjs: 'never',
+      jsx: 'never',
+      ts: 'never',
+      tsx: 'never',
+    }],
     'no-param-reassign': ['error', {
       props: true,
       ignorePropertyModificationsFor: [
@@ -49,14 +53,24 @@ module.exports = {
         'e', // for e.returnvalue
       ],
     }],
-    'vue-i18n/no-dynamic-keys': 'error',
-    'vue-i18n/no-unused-keys': ['error', {
-      extensions: ['.js', '.vue', '.ts']
-    }]
   },
+
   settings: {
     'vue-i18n': {
       localeDir: './src/locales/*.json'
+    },
+    'import/extensions': [
+      '.js',
+      '.jsx',
+      '.mjs',
+      '.ts',
+      '.tsx',
+    ],
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx']
+      },
+      typescript: {},
     }
   }
 };

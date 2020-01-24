@@ -1,22 +1,31 @@
-# Quasar-Framewok Lerna Monorepo Starter Kit
+# Quasar-Framework Monorepo - Starter Kit
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 <img src="https://img.shields.io/npm/v/quasar.svg?label=quasar"> <img src="https://img.shields.io/npm/v/%40quasar/app.svg?label=@quasar/app"> <img src="https://img.shields.io/npm/v/%40quasar/cli.svg?label=@quasar/cli"> <img src="https://img.shields.io/npm/v/%40quasar/extras.svg?label=@quasar/extras">
+
+------
+
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 
+## Required
+
+Global lerna installation
+```bash
+$ npm install -g lerna lerna-wizard
+```
+
 ## Usage
 
 -   `yarn` - Install dependencies
 -   `yarn bootstrap` - Link local packages together and install remaining package dependencies.
--   `yarn dev` - Run "yarn dev" in every package.
--   `yarn build` - Run "yarn build" in every package.
--   `yarn test:unit` - Run "yarn test:unit" in every package.
 -   `yarn test:unit:ui` - Runs [majestic](https://github.com/Raathigesh/majestic) GUI
--   `yarn lint` - Lints and fixes files.
+-   `yarn lint` - Runs Lint in every package.
+-   `yarn lint:fix` - Runs Lint in every package and applies possibles fixes.
 -   `yarn update:check` - Check for updates on your packages.
 -   `yarn update:update` - Check for updates on your packages and install the latest.
 -   `git-cz` - Commit your changes using [commitizen](https://github.com/commitizen/cz-cli).
@@ -28,8 +37,10 @@
 
 ## Lerna
 
+-   `lerna clean` - Clean the node_modules on the packages.
 -   `lerna changed` - Show which packages have changed.
 -   `lerna diff` - Show specifically what files have cause the packages to change.
+-   `lerna-wizard` - A CLI tool to help with lerna tasks
 
 ## Commit message format
 ```

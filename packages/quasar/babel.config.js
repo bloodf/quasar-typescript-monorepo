@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
-let extend = undefined;
+
+let extend;
 
 if (fs.existsSync('./.babelrc')) {
   extend = './.babelrc';
@@ -7,7 +8,7 @@ if (fs.existsSync('./.babelrc')) {
 
 module.exports = {
   presets: [
-    '@quasar/babel-preset-app'
+    '@quasar/babel-preset-app',
   ],
-  extends: extend
+  extends: extend,
 };

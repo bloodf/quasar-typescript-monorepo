@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "baseUrl": ".",
+    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }],
+    "typeRoots": [
+      "node_modules"
+    ]
+  },
+  "exclude": ["node_modules"]
+}

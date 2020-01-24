@@ -1,36 +1,59 @@
 {
   "name": "@quasar-monorepo/quasar",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
-  "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
-  "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
   "private": true,
+  "author": "Heitor Ramon Ribeiro <heitor.ramon@gmail.com>",
+  "workspaces": {
+    "nohoist": [
+      "**/quasar",
+      "**/quasar/**",
+      "**/@quasar",
+      "**/@quasar/**",
+      "**/jest-serializer-vue",
+      "**/jest-serializer-vue/**",
+      "**/@vue/test-utils",
+      "**/@vue/test-utils/**",
+      "**/vue",
+      "**/vue/**"
+    ]
+  },
   "scripts": {
-    "serve": "quasar dev",
-    "build": "quasar build",
-    "lint": "eslint --fix --ext .js,.vue src",
-    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
-    "update:check": "ncu",
-    "update:update": "ncu -u",
     "bootstrap": "lerna bootstrap --use-workspaces",
+    "build": "quasar build",
+    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\"",
+    "lint": "npm run lint:src && npm run lint:test",
+    "lint:src": "eslint --ext .js,.vue,.ts,.tsx src",
+    "lint:test": "eslint --ext .js,.vue,.ts,.tsx test",
+    "lint:fix": "npm run lint:fix:src && npm run lint:fix:test",
+    "lint:fix:src": "eslint --fix --ext .js,.vue,.ts,.tsx src",
+    "lint:fix:test": "eslint --fix --ext .js,.vue,.ts,.tsx test",
+    "serve": "quasar dev",
+    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
+    "test": "echo \"See package.json => scripts for available tests.\" && exit 0",
+    "test:e2e": "cypress open",
+    "test:e2e:CI": "cypress run",
     "test:unit": "jest --updateSnapshot",
     "test:unit:coverage": "jest --coverage",
+    "test:unit:ui": "majestic",
     "test:unit:watch": "jest --watch",
     "test:unit:watchAll": "jest --watchAll",
-    "serve:test:coverage": "quasar serve test/jest/coverage/lcov-report/ --port 8788",
-    "concurrently:dev:jest": "concurrently \"quasar dev\" \"jest --watch\"",
-    "test:unit:ui": "majestic",
-    "test:e2e": "cypress open",
-    "test:e2e:CI": "cypress run"
+    "update:check": "ncu",
+    "update:update": "ncu -u"
   },
+  "browserslist": [
+    "last 1 version, not dead, ie >= 11"
+  ],
   "dependencies": {
-    "@quasar/extras": "^1.4.2",
-    "quasar": "^1.7.4",
+    "@quasar/extras": "^1.5.0",
+    "quasar": "^1.8.0",
     "vue-class-component": "^7.2.2",
     "vue-i18n": "^8.15.3",
-    "vue-property-decorator": "^8.3.0"
+    "vuex": "^3.1.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5",
+    "vue-property-decorator": "^8.3.0",
+    "reflect-metadata": "^0.1.13",
+    "@vue/composition-api": "^0.3.4"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.2",
@@ -38,14 +61,18 @@
     "@quasar/quasar-app-extension-testing": "^1.0.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^1.0.0-beta.10",
     "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.0",
-    "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2"
+    "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2",
+    "@testing-library/jest-dom": "^5.0.2",
+    "@vue/test-utils": "^1.0.0-beta.31"
   },
   "engines": {
     "node": ">= 10.18.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
-  "browserslist": [
-    "last 1 version, not dead, ie >= 11"
-  ]
+  "capacitorId": "",
+  "cordovaId": "org.cordova.quasar.app",
+  "shortProductName": "Web App",
+  "description": "A Quasar Framework app",
+  "productName": "Quasar App"
 }

@@ -1,5 +1,11 @@
+/* eslint-disable */
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const packageJson = require('./package');
+const path = require('path');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require('webpack');
+const webpackConf = require('./webpack.conf');
 
 module.exports = function (ctx) {
   return {
@@ -7,12 +13,13 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      'i18n'
+      'i18n',
+      'composition-api',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.styl'
+      'app.styl',
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -23,9 +30,8 @@ module.exports = function (ctx) {
       // 'eva-icons',
       // 'themify',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
       'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons', // optional, you are not bound to it
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
@@ -40,27 +46,10 @@ module.exports = function (ctx) {
       //            (fastest compile time; minimum bundle size; most tedious)
       // * true   - Import everything from Quasar
       //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: false,
+      all: 'auto',
 
-      components: [
-        'QLayout',
-        'QHeader',
-        'QDrawer',
-        'QPageContainer',
-        'QPage',
-        'QToolbar',
-        'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel'
-      ],
-
-      directives: [
-        'Ripple'
-      ],
+      components: [],
+      directives: [],
 
       // Quasar plugins
       plugins: []
@@ -74,31 +63,58 @@ module.exports = function (ctx) {
       scopeHoisting: true,
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       showProgress: true,
-      gzip: false,
+      gzip: true,
       analyze: false,
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
-      // extractCSS: false,
+      extractCSS: true,
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
-      extendWebpack (cfg) {
+      extendWebpack(cfg) {
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|ts|vue)$/,
           loader: 'eslint-loader',
           exclude: /node_modules/,
           options: {
-            formatter: require('eslint').CLIEngine.getFormatter('stylish')
-          }
-        })
-      }
+            formatter: require('eslint').CLIEngine.getFormatter('stylish'),
+          },
+        });
+
+        if (ctx.prod) {
+          cfg.optimization.mergeDuplicateChunks = true;
+          cfg.optimization.splitChunks.chunks = 'all';
+          cfg.optimization.splitChunks.maxInitialRequests = Infinity;
+          cfg.optimization.splitChunks.minSize = 0;
+          cfg.optimization.splitChunks.maxAsyncRequests = 10;
+          cfg.optimization.splitChunks.cacheGroups = {
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: (module) => `${module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1].replace(
+                /[@\._]/gm,
+                '')}`,
+            },
+          };
+
+          cfg.plugins.push(new ManifestPlugin());
+          /* Change the languages you want on your application */
+
+          /* cfg.plugins.push(new webpack.ContextReplacementPlugin(/quasar-framework[\/\\]i18n/,
+            /en|pt-br|us|uk/)); */
+        }
+
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+          ...webpackConf.resolve.alias,
+        };
+      },
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
       port: 8080,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
     },
 
     // animations: 'all', // --- includes all animations
@@ -107,7 +123,7 @@ module.exports = function (ctx) {
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
-      pwa: false
+      pwa: false,
     },
 
     // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
@@ -152,16 +168,17 @@ module.exports = function (ctx) {
       }
     },
 
+
     // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
     cordova: {
       // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
-      id: 'org.cordova.quasar.app'
+      id: packageJson.cordovaId,
     },
 
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true
+      hideSplashscreen: true,
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
@@ -184,16 +201,26 @@ module.exports = function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'quasar'
+        appId: 'quasar',
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
       nodeIntegration: true,
+    },
+    chainWebpack(chain, { isServer, isClient }) {
+      const fileHash = '.[hash:8]';
+      const chunkHash = '.[contenthash:8]';
 
-      extendWebpack (cfg) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
-      }
-    }
-  }
-}
+      chain.output
+      .filename(`js/[name]${fileHash}.js`);
+
+      chain.output
+      .chunkFilename(`js/[name]${chunkHash}.js`);
+    },
+    extendWebpack(cfg) {
+      // do something with Electron main process Webpack cfg
+      // chainWebpack also available besides this extendWebpack
+    },
+
+  };
+};

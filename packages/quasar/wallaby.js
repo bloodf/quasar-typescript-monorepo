@@ -12,7 +12,7 @@ module.exports = (wallaby) => {
       '!test/**/*.spec.js',
       '!src/**/*.spec.js',
       '!test/**/*.spec.ts',
-      '!src/**/*.spec.ts'
+      '!src/**/*.spec.ts',
     ],
 
     tests: [
@@ -24,7 +24,7 @@ module.exports = (wallaby) => {
 
     env: {
       type: 'node',
-      runner: 'node'
+      runner: 'node',
     },
 
     compilers: {
@@ -32,21 +32,21 @@ module.exports = (wallaby) => {
       '**/*.ts?(x)': wallaby.compilers.typeScript({
         typescript: require('typescript'),
       }),
-      '**/*.vue': require('wallaby-vue-compiler')(compiler)
+      '**/*.vue': require('wallaby-vue-compiler')(compiler),
     },
 
     preprocessors: {
-      '**/*.vue': file => require('vue-jest').process(file.content, file.path)
+      '**/*.vue': (file) => require('vue-jest').process(file.content, file.path),
     },
 
-    setup: function (wallaby) {
-      const jestConfig = require('./package').jest || require('./jest.config')
-      jestConfig.transform = {}
-      wallaby.testFramework.configure(jestConfig)
+    setup(wallaby) {
+      const jestConfig = require('./package').jest || require('./jest.config');
+      jestConfig.transform = {};
+      wallaby.testFramework.configure(jestConfig);
     },
 
     testFramework: 'jest',
 
-    debug: true
-  }
-}
+    debug: true,
+  };
+};
