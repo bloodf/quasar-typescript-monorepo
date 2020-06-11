@@ -53,7 +53,7 @@
     "vue-router": "^3.1.5",
     "vue-property-decorator": "^8.3.0",
     "reflect-metadata": "^0.1.13",
-    "@vue/composition-api": "^0.3.4"
+    "@vue/composition-api": "^0.6.2"
   },
   "devDependencies": {
     "@quasar/app": "^1.5.2",
