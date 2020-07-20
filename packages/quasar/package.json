@@ -56,7 +56,7 @@
     "@vue/composition-api": "^0.3.4"
   },
   "devDependencies": {
-    "@quasar/app": "^1.5.2",
+    "@quasar/app": "^2.0.6",
     "@quasar/quasar-app-extension-dotenv": "^1.0.0",
     "@quasar/quasar-app-extension-testing": "^1.0.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^1.0.0-beta.10",
