@@ -14,13 +14,13 @@ module.exports = {
 
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    sourceType: 'module',
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue']
   },
 
   extends: [
+    '../../.eslintrc.js',
     'plugin:vue/essential',
     'plugin:vue/strongly-recommended',
     'plugin:vue/recommended',
@@ -65,10 +65,11 @@ module.exports = {
       '.mjs',
       '.ts',
       '.tsx',
+      '.vue'
     ],
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue']
       },
       typescript: {},
     }

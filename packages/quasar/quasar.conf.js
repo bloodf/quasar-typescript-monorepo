@@ -2,19 +2,23 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 const packageJson = require('./package');
-const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const webpack = require('webpack');
 const webpackConf = require('./webpack.conf');
+const Dotenv = require('dotenv-webpack');
+const { configure } = require('quasar/wrappers');
 
-module.exports = function (ctx) {
+const publicPath = '';
+
+module.exports = configure(function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-      'i18n',
-      'composition-api',
+      'vuePlugin/i18n',
+      'vuePlugin/vuelidate',
+      'vuePlugin/compositionApi',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -34,25 +38,12 @@ module.exports = function (ctx) {
       'material-icons', // optional, you are not bound to it
     ],
 
-    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      iconSet: 'material-icons', // Quasar icon set
-      lang: 'en-us', // Quasar language pack
-
-      // Possible values for "all":
-      // * 'auto' - Auto-import needed Quasar components & directives
-      //            (slightly higher compile time; next to minimum bundle size; most convenient)
-      // * false  - Manually specify what to import
-      //            (fastest compile time; minimum bundle size; most tedious)
-      // * true   - Import everything from Quasar
-      //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: 'auto',
-
-      components: [],
-      directives: [],
-
-      // Quasar plugins
-      plugins: []
+      iconSet: 'material-icons',
+      lang: 'pt-br',
+      plugins: [],
+      importStrategy: 'auto',
+      autoImportComponentCase: 'combined',
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -60,8 +51,11 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      distDir: 'dist',
+      devtool: ctx.dev ? 'inline-source-map' : 'source-map',
+      sourceMap: true,
       scopeHoisting: true,
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       showProgress: true,
       gzip: true,
       analyze: false,
@@ -94,7 +88,26 @@ module.exports = function (ctx) {
                 /[@\._]/gm,
                 '')}`,
             },
+            vue: {
+              test: /[\\/]node_modules[\\/](@vue|vue-class-component|vue-property-decorator)[\\/]/,
+              name: 'vue',
+              reuseExistingChunk: true,
+            },
+            vuex: {
+              test: /[\\/]node_modules[\\/](vuex|vuex-class)[\\/]/,
+              name: 'vuex',
+              reuseExistingChunk: true,
+            },
+            vueRouter: {
+              test: /[\\/]node_modules[\\/]vue-router[\\/]/,
+              name: 'vueRouter',
+              reuseExistingChunk: true,
+            },
           };
+
+          cfg.plugins.push(new Dotenv({
+            systemvars: true,
+          }));
 
           cfg.plugins.push(new ManifestPlugin());
           /* Change the languages you want on your application */
@@ -208,14 +221,6 @@ module.exports = function (ctx) {
       nodeIntegration: true,
     },
     chainWebpack(chain, { isServer, isClient }) {
-      const fileHash = '.[hash:8]';
-      const chunkHash = '.[contenthash:8]';
-
-      chain.output
-      .filename(`js/[name]${fileHash}.js`);
-
-      chain.output
-      .chunkFilename(`js/[name]${chunkHash}.js`);
     },
     extendWebpack(cfg) {
       // do something with Electron main process Webpack cfg
@@ -223,4 +228,4 @@ module.exports = function (ctx) {
     },
 
   };
-};
+});

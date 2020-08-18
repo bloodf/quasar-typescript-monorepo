@@ -2,7 +2,7 @@
   "plugins": ["@babel/plugin-syntax-dynamic-import"],
   "env": {
     "test": {
-      "plugins": ["dynamic-import-node"],
+      "plugins": ["dynamic-import-node", "@babel/plugin-transform-modules-commonjs"],
       "presets": [
         [
           "@babel/preset-env",

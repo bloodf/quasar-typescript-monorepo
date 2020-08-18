@@ -1,16 +1,14 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
-  </q-page>
+  <div>
+    <counter />
+  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
+export default {
   name: 'PageIndex',
-});
+  components: {
+    Counter: () => import(/* webpackChunkName: "componentsCounter" */'components/Counter.vue'),
+  },
+};
 </script>

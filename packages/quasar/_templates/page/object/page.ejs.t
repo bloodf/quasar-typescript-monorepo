@@ -1,5 +1,5 @@
 ---
-to: src/pages/<%= h.changeCase.camel(folder) %>/<%= h.changeCase.pascal(name) %>.vue
+to: src/pages/<%= folder %>/<%= h.changeCase.pascal(name) %>.vue
 ---
 <template>
   <div />

@@ -4,5 +4,5 @@ export default [
     meta: {
       publicRoute: true,
     },
-    component: () => import(/* webpackChunkName: "pagesErrors404" */'pages/Error404.vue'),
+    component: () => import(/* webpackChunkName: "pagesErrors404" */'pages/errors/404.vue'),
   }];

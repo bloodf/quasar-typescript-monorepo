@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig.json');
 const baseJest = require('../../jest.config');
 
 module.exports = {
@@ -14,7 +16,14 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '<rootDir>/src/**/*.jsx',
   ],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  testMatch: [
+    '<rootDir>/test/jest/__tests__/**/*.spec.js',
+    '<rootDir>/test/jest/__tests__/**/*.test.js',
+    '<rootDir>/src/**/__tests__/*_jest.spec.js',
+    '<rootDir>/test/jest/__tests__/**/*.spec.ts',
+    '<rootDir>/test/jest/__tests__/**/*.test.ts',
+    '<rootDir>/src/**/__tests__/*_jest.spec.ts',
+  ],
   moduleFileExtensions: [
     'vue',
     'js',
@@ -24,34 +33,38 @@ module.exports = {
     'tsx',
   ],
   moduleNameMapper: {
-    '^vue$': '<rootDir>/node_modules/vue/dist/vue.common.js',
-    '^test-utils$': '<rootDir>/node_modules/@vue/test-utils/dist/vue-test-utils.js',
-    '^quasar$': '<rootDir>/node_modules/quasar/dist/quasar.common.js',
+    '^vue$': '<rootDir>/../../node_modules/vue/dist/vue.common.js',
+    '^test-utils$': '<rootDir>/../../node_modules/@vue/test-utils/dist/vue-test-utils.js',
+    '^quasar$': '<rootDir>/../../node_modules/quasar/dist/quasar.common.js',
     '^~/(.*)$': '<rootDir>/$1',
-    '.*css$': '<rootDir>/test/jest/utils/stub.css',
-    '^app/(.*)$': '<rootDir>/$1',
-    '^src/(.*)$': '<rootDir>/src/$1',
-    '^router/(.*)$': '<rootDir>/src/router/$1',
-    '^pages/(.*)$': '<rootDir>/src/pages/$1',
-    '^layouts/(.*)$': '<rootDir>/src/layouts/$1',
-    '^components/(.*)$': '<rootDir>/src/components/$1',
-    '^assets/(.*)$': '<rootDir>/src/assets/$1',
-    '^utils/(.*)$': '<rootDir>/src/utils/$1',
-    '^store/(.*)$': '<rootDir>/src/store/$1',
-    '^boot/(.*)$': '<rootDir>/src/boot/$1',
+    '^jest/utils/(.*)$': '<rootDir>/test/jest/utils/$1',
     '^statics/(.*)$': '<rootDir>/src/statics/$1',
+    ...pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
   },
   transform: {
+    '^.+\\.(js|jsx)?$': 'babel-jest',
     '.*\\.vue$': 'vue-jest',
-    '^.+\\.tsx?$': 'ts-jest',
-    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': 'jest-transform-stub',
+    '\\.(css|less|scss|sass|styl)$': 'identity-obj-proxy'
   },
-
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!quasar/lang)',
+    '<rootDir>/../../node_modules/',
+    '<rootDir>/node_modules/',
+
   ],
 
   snapshotSerializers: [
-    '<rootDir>/node_modules/jest-serializer-vue',
+    '<rootDir>/../../node_modules/jest-serializer-vue',
   ],
+  globals: {
+    'ts-jest': {
+      tsConfig: './test/tsconfig.json',
+      diagnostics: true,
+    },
+    'vue-jest': {
+      tsConfig: './test/tsconfig.json',
+      experimentalCSSCompile: true,
+    }
+  },
 };

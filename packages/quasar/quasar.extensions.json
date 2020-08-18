@@ -1,14 +1,7 @@
 {
-  "@quasar/typescript": {
-    "webpack": "plugin",
-    "rename": false,
-    "vscode": false,
-    "prettier": false
-  },
   "@quasar/testing": {
     "harnesses": [
-      "unit-jest",
-      "e2e-cypress"
+      "unit-jest"
     ]
   },
   "@quasar/testing-unit-jest": {
@@ -18,11 +11,6 @@
       "SFC",
       "wallabyjs",
       "majestic"
-    ]
-  },
-  "@quasar/testing-e2e-cypress": {
-    "options": [
-      "scripts"
     ]
   },
   "@quasar/dotenv": {

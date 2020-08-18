@@ -1,50 +1,36 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../../packages/quasar/",
     "paths": {
-      "app/*": [
-        "./*"
-      ],
-      "src/*": [
-        "./src/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "layouts/*": [
-        "./src/layouts/*"
-      ],
-      "pages/*": [
-        "./src/pages/*"
-      ],
-      "assets/*": [
-        "./src/assets/*"
-      ],
-      "boot/*": [
-        "./src/boot/*"
-      ],
-      "store/*": [
-        "./src/store/*"
-      ],
-      "utils/*": [
-        "./src/utils/*"
-      ],
-      "cypress/*": [
-        "./test/cypress/*"
-      ],
-      "jest/*": [
-        "./test/jest/*"
-      ],
-      "jest/tests/*": [
-        "./test/jest/__tests__/*"
-      ],
-      "loaders/*": [
-        "./test/loaders/*"
-      ]
-    }
+      "app/*": ["./*"],
+      "src/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "enums/*": ["src/enums/*"],
+      "mixins/*": ["src/mixins/*"],
+      "layouts/*": ["src/layouts/*"],
+      "pages/*": ["src/pages/*"],
+      "assets/*": ["src/assets/*"],
+      "boot/*": ["src/boot/*"],
+      "drivers/*": ["src/drivers/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "store/*": ["src/store/*"],
+      "services/*": ["src/services/*"],
+      "utils/*": ["src/utils/*"],
+      "cypress/*": ["test/cypress/*"],
+      "jest/*": ["test/jest/*"],
+      "jest/tests/*": ["test/jest/__tests__/*"],
+      "jest/utils/*": ["test/jest/utils/*"],
+      "loaders/*": ["test/loaders/*"]
+    },
+    "baseUrl": "."
   },
   "include": [
-    "."
-  ]
+    "./src/**/*.ts",
+    "./src/**/*.js",
+    "./src/**/*.vue",
+    "./test/**/*.ts",
+    "./test/**/*.js",
+    "./test/**/*.vue"
+  ],
+  "exclude": ["_templates", "dist", "node_modules", ".quasar"]
 }

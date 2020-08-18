@@ -9,7 +9,6 @@ module.exports = {
 
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    sourceType: 'module',
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
     extraFileExtensions: ['.vue']
@@ -17,6 +16,7 @@ module.exports = {
 
 
   extends: [
+    '../.eslintrc.js',
     'plugin:jest/recommended',
   ],
 

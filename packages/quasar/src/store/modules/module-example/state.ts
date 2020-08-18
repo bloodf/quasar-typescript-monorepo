@@ -4,9 +4,11 @@ export interface ExampleStateInterface extends BaseStateInterface {
   data: object;
 }
 
-const baseState: ExampleStateInterface = {
+const createBaseState = (): ExampleStateInterface => ({
   ...BaseState,
   data: {},
-};
+});
+
+const baseState = createBaseState();
 
 export default baseState;

@@ -1,21 +1,28 @@
 import { RouteConfig } from 'vue-router';
 import ErrorRoutes from './routes/errors';
 
-const requireRoutes = require.context('./routes', true, /^(?!.*index)(?!.*errors)(?!.*test).*\.js$/is);
+const requireRoutes = require.context('./routes', true, /^(?!.*index)(?!.*errors)(?!.*test).*\.(js|ts)$/is);
 
 const importedRoutes: RouteConfig[] = [];
 
 requireRoutes.keys().forEach((fileName) => {
-  importedRoutes.push({
-    ...requireRoutes(fileName).default,
-  });
+  const routes = requireRoutes(fileName).default;
+
+  if (Array.isArray(routes)) {
+    importedRoutes.push(...routes);
+  } else {
+    importedRoutes.push({
+      ...routes,
+    });
+  }
+
   return true;
 });
 
-let routes: RouteConfig[] = [
+const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "layoutMyLayout" */'layouts/MyLayout.vue'),
+    component: () => import(/* webpackChunkName: "layoutBaseClear" */'layouts/base/clear.vue'),
     children: [
       {
         name: 'Index',
@@ -27,8 +34,4 @@ let routes: RouteConfig[] = [
   },
 ];
 
-if (process.env.MODE !== 'ssr') {
-  routes = [...routes, ...ErrorRoutes];
-}
-
-export default [...routes];
+export default [...routes, ...ErrorRoutes];
