@@ -41,6 +41,7 @@ import VueRouter from 'vue-router';
 import Vuelidate from 'vuelidate';
 import messages from 'src/i18n';
 import dateTimeFormats from 'src/i18n/dateTimeFormats';
+import { frameworkLang } from '../../../quasar.conf.js';
 
 /**
  * Utility type to declare an extended Vue constructor
@@ -53,14 +54,14 @@ type VueClass<V extends Vue> = (new (...args: any[]) => V) & typeof Vue;
  */
 type ExtractProps<C> = C extends ComponentOptions<Vue,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any,
+    any,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any,
+    any,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any,
+    any,
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any,
-infer PropsTypes>
+    any,
+    infer PropsTypes>
   ? PropsTypes // eslint-disable-next-line @typescript-eslint/no-explicit-any
   : Record<string, any>;
 
@@ -123,9 +124,9 @@ export const createVuex = (vuexModules: VuexModule<any, any>[] = [{ name: '', mo
   });
 };
 
-export const createI18n = (lang = 'pt-br') => new VueI18n({
-  locale: lang,
-  fallbackLocale: lang,
+export const createI18n = (lang: string) => new VueI18n({
+  locale: lang || frameworkLang,
+  fallbackLocale: lang || frameworkLang,
   messages,
   dateTimeFormats,
 });
@@ -155,10 +156,10 @@ export const mountQuasarOptions = <V extends Vue, C extends VueConstructor<V>>(
     const components = Object.keys(All)
       .reduce<{ [index: string]: VueConstructor }>(
         (object, key) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const val = (All as any)[key];
           if (isComponent(val)) {
-          // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign
             object[key] = val;
           }
           return object;

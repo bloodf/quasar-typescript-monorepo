@@ -8,6 +8,7 @@ const webpackConf = require('./webpack.conf');
 const Dotenv = require('dotenv-webpack');
 const { configure } = require('quasar/wrappers');
 
+export const frameworkLang = 'en-us';
 const publicPath = '';
 
 module.exports = configure(function (ctx) {
@@ -40,7 +41,7 @@ module.exports = configure(function (ctx) {
 
     framework: {
       iconSet: 'material-icons',
-      lang: 'pt-br',
+      lang: frameworkLang,
       plugins: [],
       importStrategy: 'auto',
       autoImportComponentCase: 'combined',
