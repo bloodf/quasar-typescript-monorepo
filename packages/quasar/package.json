@@ -51,7 +51,7 @@
   "devDependencies": {
     "jest": "^26.4.0",
     "majestic": "^1.7.0",
-    "dotenv-webpack": "^2.0.0",
+    "dotenv-webpack": "^6.0.0",
     "@types/vuelidate": "^0.7.13",
     "@quasar/app": "^2.0.6",
     "@quasar/cli": "^1.1.0",
