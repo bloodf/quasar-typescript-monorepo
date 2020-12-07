@@ -52,7 +52,7 @@
     "jest": "^26.4.0",
     "lerna": "^3.22.1",
     "majestic": "^1.7.0",
-    "npm-check-updates": "^7.1.1",
+    "npm-check-updates": "^10.2.3",
     "ts-jest": "^26.2.0",
     "typescript": "^3.9.7",
     "webpack-manifest-plugin": "^2.2.0",
