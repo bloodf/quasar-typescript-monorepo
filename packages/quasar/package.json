@@ -57,7 +57,7 @@
     "@quasar/cli": "^1.1.0",
     "@quasar/quasar-app-extension-dotenv": "^1.0.5",
     "@quasar/quasar-app-extension-testing": "^1.0.0",
-    "@quasar/quasar-app-extension-testing-unit-jest": "^1.0.1",
+    "@quasar/quasar-app-extension-testing-unit-jest": "^2.2.1",
     "@testing-library/jest-dom": "^5.11.3",
     "@vue/test-utils": "^1.0.4",
     "vue-styleguidist": "^4.31.0",
